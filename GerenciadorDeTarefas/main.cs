@@ -10,7 +10,6 @@ int opcao = 0;
         Console.Clear();
         ExibirLogo();    
         Console.WriteLine("1 - Adicionar tarefa");
-        Console.WriteLine("1 - Adicionar tarefa");
         Console.WriteLine("2 - Listar tarefas");
         Console.WriteLine("3 - Remover tarefa");
         Console.WriteLine("4 - Concluir tarefa");
