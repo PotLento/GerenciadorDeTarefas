@@ -1,89 +1,81 @@
-﻿List<string> tarefas = new List<string>();
+﻿using Tarefas;
+ 
+GerenciadorDeTarefas gerenciador = new GerenciadorDeTarefas();
+
 int opcao = 0;
 
-while (opcao != 4)
-{
-    Console.WriteLine("===== GERENCIADOR DE TAREFAS =====");
-    Console.WriteLine("1 - Adicionar tarefa");
-    Console.WriteLine("2 - Listar tarefas");
-    Console.WriteLine("3 - Remover tarefa");
-    Console.WriteLine("4 - Sair");
-    Console.Write("Escolha uma opção: ");
-
-    while (!int.TryParse(Console.ReadLine(), out opcao))
+    while (opcao != 5)
     {
-        Console.Write("Opção inválida. Tente novamente: ");
-    }
 
-    switch (opcao)
-    {
-        case 1:
-            AdicionarTarefa(tarefas);
-            break;
+        Console.Clear();
+        ExibirLogo();    
+        Console.WriteLine("1 - Adicionar tarefa");
+        Console.WriteLine("2 - Listar tarefas");
+        Console.WriteLine("3 - Remover tarefa");
+        Console.WriteLine("4 - Concluir tarefa");
+        Console.WriteLine("5 - Sair");
+        Console.Write("\nEscolha uma opção: ");
 
-        case 2:
-            Console.WriteLine("Listar tarefas selecionado.");
-            ListarTarefas(tarefas);
-            break;
+        while (!int.TryParse(Console.ReadLine(), out opcao))
+        {
+            Console.Write("Opção inválida. Tente novamente: ");
+        }
 
-        case 3:
-            Console.WriteLine("Remover tarefa selecionado.");
-            RemoverTarefa(tarefas);
-            break;
+        // Limpa o menu antes de mostrar somente a ação escolhida
+        Console.Clear();
+        ExibirLogo();
 
-        case 4:
+        switch (opcao)
+        {
+            case 1:
+                gerenciador.AdicionarTarefa();
+                break;
+
+            case 2:
+                Console.WriteLine("Listar tarefas selecionado.");
+                gerenciador.ListarTarefas();
+                break;
+
+            case 3:
+                Console.WriteLine("Remover tarefa selecionado.");
+                gerenciador.RemoverTarefa();
+                break;
+
+            case 4:
+                Console.WriteLine("Concluir tarefa selecionado.");
+                gerenciador.ConcluirTarefa();
+                break;
+
+            case 5:
             Console.WriteLine("Saindo...");
             break;
 
-        default:
-            Console.WriteLine("Opção inválida.");
-            break;
-    }
-}
-
-    // código responsável por listar
-    void ListarTarefas(List<string> tarefas)
-{
-    if (tarefas.Count == 0)
-    {
-        Console.WriteLine("Nenhuma tarefa cadastrada.");
-    }
-    else
-    {
-        Console.WriteLine("Tarefas cadastradas: ");
-        for (int i = 0; i < tarefas.Count; i++)
-        {
-            Console.WriteLine($"{i + 1}. {tarefas[i]}");
+            default:
+                Console.WriteLine("Opção inválida.");
+                break;
         }
+
+    if (opcao != 5)
+    {
+        Console.WriteLine("\nPressione qualquer tecla para voltar ao menu...");
+        Console.ReadKey();
     }
 }
 
-void AdicionarTarefa(List<string> tarefas)
+void ExibirLogo()
 {
-    Console.WriteLine("Adicionar tarefa selecionado.");
-    Console.WriteLine("Digite a descrição da tarefa: ");
+    Console.WriteLine(@"
+░██████╗░███████╗██████╗░███████╗███╗░░██╗░█████╗░██╗░█████╗░██████╗░░█████╗░██████╗░  ██████╗░███████╗
+██╔════╝░██╔════╝██╔══██╗██╔════╝████╗░██║██╔══██╗██║██╔══██╗██╔══██╗██╔══██╗██╔══██╗  ██╔══██╗██╔════╝
+██║░░██╗░█████╗░░██████╔╝█████╗░░██╔██╗██║██║░░╚═╝██║███████║██║░░██║██║░░██║██████╔╝  ██║░░██║█████╗░░
+██║░░╚██╗██╔══╝░░██╔══██╗██╔════╝██║╚████║██║░░██╗██║██╔══██║██║░░██║██║░░██║██╔══██╗  ██║░░██║██╔══╝░░
+╚██████╔╝███████╗██║░░██║███████╗██║░╚███║╚█████╔╝██║██║░░██║██████╔╝╚█████╔╝██║░░██║  ██████╔╝███████╗
+░╚═════╝░╚══════╝╚═╝░░╚═╝╚══════╝╚═╝░░╚══╝░╚════╝░╚═╝╚═╝░░╚═╝╚═════╝░░╚════╝░╚═╝░░╚═╝  ╚═════╝░╚══════╝
 
-    string descricao = Console.ReadLine();
-
-    tarefas.Add(descricao);
-}
-
-void RemoverTarefa(List<string> tarefas)
-{
-    if (tarefas.Count == 0)
-    {
-        Console.WriteLine("Nenhuma tarefa cadastrada.");
-    }
-    else
-    {
-        ListarTarefas(tarefas);
-        Console.Write("Digite o número da tarefa a ser removida: ");
-        int numeroTarefa;
-        while (!int.TryParse(Console.ReadLine(), out numeroTarefa) || numeroTarefa < 1 || numeroTarefa > tarefas.Count)
-        {
-            Console.Write("Índice inválido. Tente novamente: ");
-        }
-        tarefas.RemoveAt(numeroTarefa - 1);
-        Console.WriteLine("Tarefa removida com sucesso.");
-    }
+████████╗░█████╗░██████╗░███████╗███████╗░█████╗░░██████╗
+╚══██╔══╝██╔══██╗██╔══██╗██╔════╝██╔════╝██╔══██╗██╔════╝
+░░░██║░░░███████║██████╔╝█████╗░░█████╗░░███████║╚█████╗░
+░░░██║░░░██╔══██║██╔══██╗██╔══╝░░██╔══╝░░██╔══██║░╚═══██╗
+░░░██║░░░██║░░██║██║░░██║███████╗██║░░░░░██║░░██║██████╔╝
+░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚═╝╚══════╝╚═╝░░░░░╚═╝░░╚═╝╚═════╝░");
 }
